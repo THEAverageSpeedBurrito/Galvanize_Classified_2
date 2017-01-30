@@ -1,0 +1,23 @@
+{
+  "name": "classfield2",
+  "version": "1.0.0",
+  "description": "## Read the entire README before beginning. Commit often.",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/THEAverageSpeedBurrito/Galvanize_Classified_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/THEAverageSpeedBurrito/Galvanize_Classified_2/issues"
+  },
+  "homepage": "https://github.com/THEAverageSpeedBurrito/Galvanize_Classified_2#readme"
+}
