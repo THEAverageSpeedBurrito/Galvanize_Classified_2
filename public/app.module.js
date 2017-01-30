@@ -21,6 +21,10 @@
         <input type="text" name="image url" ng-model="$ctrl.update.item_image" placeholder="image url"/>
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.updatePost()">Update Post</button>
       </form>
+      <form novalidate name="delete">
+        <input type="text" name="postId" ng-model="$ctrl.delete.id" placeholder="post id"/>
+        <button type="submit" class="btn btn-primary" ng-click="$ctrl.deletePost()">Delete Post</button>
+      </form>
       <div ng-repeat="post in $ctrl.postData">
         <p>id: {{post.id}}</p>
         <img src={{post.item_image}}/>
@@ -43,7 +47,6 @@
     vm.createPost = function () {
       $http.post(`http://localhost:3000/classifieds`, vm.post)
       .then((res) => {
-        console.log(res);
         vm.postData.push(res.data)
         delete vm.post;
       })
@@ -53,10 +56,20 @@
       var id = vm.update.id;
       delete vm.update.id;
       $http.patch(`http://localhost:3000/classifieds/${id}`, vm.update)
+      .then(() => {
+        delete vm.update;
+        vm.getAll();
+      });
+    };
+
+    vm.deletePost = function () {
+      var id = parseInt(vm.delete.id);
+      $http.delete(`http://localhost:3000/classifieds/${id}`)
       .then((res) => {
-        console.log(res);
+        delete vm.delete;
+        vm.getAll();
       })
-    }
+    };
 
     vm.getAll = function () {
       $http.get(`http://localhost:3000/classifieds`).then((res) => {

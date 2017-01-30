@@ -70,15 +70,10 @@ router.patch('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   knex('classifieds')
+  .del()
   .where('id', req.params.id)
-  .then((data) => {
-    delete data[0].created_at;
-    delete data[0].updated_at;
-    knex('classifieds')
-    .del()
-    .where('id', req.params.id);
-    res.header('Access-Control-Allow-Origin', '*');
-    res.send(data[0]);
+  .then(() => {
+    res.send('done');
   })
 })
 
