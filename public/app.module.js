@@ -5,7 +5,16 @@
   angular.module('app', [])
   .component('fluff', {
     controller: controller,
-    templateURL: 'template.html'
+    template: `
+      <h1>Classified</h1>
+      <div ng-repeat="post in $ctrl.postData">
+        <img src={{post.item_image}}/>
+        <p>{{post.title}}</p>
+        <p>$ {{post.price}}</p>
+        <p>{{post.description}}</p>
+        <hr/>
+      </div>
+    `
   });
 
   controller.$inject = ['$http'];
@@ -13,12 +22,13 @@
     const vm = this;
 
     vm.$onInit = function() {
-      this.getAll()
-    }
+      this.getAll();
+    };
 
     vm.getAll = function () {
-      $http.get(`${DATABASE_URL}/classifieds`).then((data) => {
-        console.log(data);
+      $http.get(`${DATABASE_URL}/classifieds`).then((res) => {
+        console.log(res.data);
+        vm.postData = res.data;
       });
     };
   }
