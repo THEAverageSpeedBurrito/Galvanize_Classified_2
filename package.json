@@ -4,7 +4,14 @@
   "description": "## Read the entire README before beginning. Commit often.",
   "main": "index.js",
   "dependencies": {
-    "angular": "^1.6.1"
+    "angular": "^1.6.1",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "knex": "^0.12.6",
+    "nodemon": "^1.11.0",
+    "pg": "^6.1.0"
   },
   "devDependencies": {},
   "scripts": {
