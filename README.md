@@ -1,5 +1,7 @@
 # Galvanize Classified - Part 2
-
+---
+###Part 2 is deployed as only an angular front end. Post information is attained from the api created in part 1.
+---
 ## Read the entire README before beginning. Commit often.
 
 ## Project Description
