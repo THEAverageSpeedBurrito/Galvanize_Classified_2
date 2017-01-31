@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module('app', [])
-  .component('fluff', {
-    controller: controller,
-    template: `
+    .component('fluff', {
+      controller: controller,
+      template: `
       <h1>Classified</h1>
       <hr/>
       <form novalidate name="postform">
@@ -29,18 +29,24 @@
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.deletePost()">Delete Post</button>
       </form>
       <hr/>
-      <div ng-repeat="post in $ctrl.postData">
+        <input type="text" name="filter" ng-model="$ctrl.filter" placeholder="filter"/>
+        <button ng-click="$ctrl.order='price'">Order by price</button>
+        <button ng-click="$ctrl.order='created_at'">Order by date</button>
+      <hr/>
+      <div ng-init="$ctrl.order = 'id'" ng-repeat="post in $ctrl.postData | filter: $ctrl.filter | orderBy: $ctrl.order">
         <p>id: {{post.id}}</p>
         <img src={{post.item_image}}/>
         <p>{{post.title}}</p>
         <p>$ {{post.price}}</p>
         <p>Description: {{post.description}}</p>
+        <p>Post Date: {{post.created_at}}</p>
         <hr/>
       </div>
     `
-  });
+    });
 
   controller.$inject = ['$http'];
+
   function controller($http) {
     const vm = this;
 
@@ -48,34 +54,34 @@
       this.getAll();
     };
 
-    vm.createPost = function () {
+    vm.createPost = function() {
       $http.post(`https://eb-classified-api.herokuapp.com/classifieds`, vm.post)
-      .then((res) => {
-        vm.postData.push(res.data);
-        delete vm.post;
-      });
+        .then((res) => {
+          vm.postData.push(res.data);
+          delete vm.post;
+        });
     };
 
-    vm.updatePost = function () {
+    vm.updatePost = function() {
       var id = vm.update.id;
       delete vm.update.id;
       $http.patch(`https://eb-classified-api.herokuapp.com/classifieds/${id}`, vm.update)
-      .then(() => {
-        delete vm.update;
-        vm.getAll();
-      });
+        .then(() => {
+          delete vm.update;
+          vm.getAll();
+        });
     };
 
-    vm.deletePost = function () {
+    vm.deletePost = function() {
       var id = parseInt(vm.delete.id);
       $http.delete(`https://eb-classified-api.herokuapp.com/classifieds/${id}`)
-      .then(() => {
-        delete vm.delete;
-        vm.getAll();
-      });
+        .then(() => {
+          delete vm.delete;
+          vm.getAll();
+        });
     };
 
-    vm.getAll = function () {
+    vm.getAll = function() {
       $http.get(`https://eb-classified-api.herokuapp.com/classifieds`).then((res) => {
         console.log(res.data);
         vm.postData = res.data;
