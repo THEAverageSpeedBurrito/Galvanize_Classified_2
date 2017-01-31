@@ -6,6 +6,7 @@
     controller: controller,
     template: `
       <h1>Classified</h1>
+      <hr/>
       <form novalidate name="postform">
         <input type="text" name="title" ng-model="$ctrl.post.title" placeholder="Title"/>
         <input type="text" name="price" ng-model="$ctrl.post.price" placeholder="Price"/>
@@ -13,6 +14,7 @@
         <input type="text" name="image url" ng-model="$ctrl.post.item_image" placeholder="image url"/>
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.createPost()">Create Post</button>
       </form>
+      <hr/>
       <form novalidate name="editform">
         <input type="text" name="postId" ng-model="$ctrl.update.id" placeholder="post id"/>
         <input type="text" name="title" ng-model="$ctrl.update.title" placeholder="Title"/>
@@ -21,10 +23,12 @@
         <input type="text" name="image url" ng-model="$ctrl.update.item_image" placeholder="image url"/>
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.updatePost()">Update Post</button>
       </form>
+      <hr/>
       <form novalidate name="delete">
         <input type="text" name="postId" ng-model="$ctrl.delete.id" placeholder="post id"/>
         <button type="submit" class="btn btn-primary" ng-click="$ctrl.deletePost()">Delete Post</button>
       </form>
+      <hr/>
       <div ng-repeat="post in $ctrl.postData">
         <p>id: {{post.id}}</p>
         <img src={{post.item_image}}/>
@@ -45,17 +49,17 @@
     };
 
     vm.createPost = function () {
-      $http.post(`http://localhost:3000/classifieds`, vm.post)
+      $http.post(`https://eb-classified-api.herokuapp.com/classifieds`, vm.post)
       .then((res) => {
-        vm.postData.push(res.data)
+        vm.postData.push(res.data);
         delete vm.post;
-      })
+      });
     };
 
     vm.updatePost = function () {
       var id = vm.update.id;
       delete vm.update.id;
-      $http.patch(`http://localhost:3000/classifieds/${id}`, vm.update)
+      $http.patch(`https://eb-classified-api.herokuapp.com/classifieds/${id}`, vm.update)
       .then(() => {
         delete vm.update;
         vm.getAll();
@@ -64,15 +68,15 @@
 
     vm.deletePost = function () {
       var id = parseInt(vm.delete.id);
-      $http.delete(`http://localhost:3000/classifieds/${id}`)
-      .then((res) => {
+      $http.delete(`https://eb-classified-api.herokuapp.com/classifieds/${id}`)
+      .then(() => {
         delete vm.delete;
         vm.getAll();
-      })
+      });
     };
 
     vm.getAll = function () {
-      $http.get(`http://localhost:3000/classifieds`).then((res) => {
+      $http.get(`https://eb-classified-api.herokuapp.com/classifieds`).then((res) => {
         console.log(res.data);
         vm.postData = res.data;
       });
