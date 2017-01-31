@@ -14,8 +14,12 @@
     "nodemon": "^1.11.0",
     "pg": "^6.1.0"
   },
+  "engines": {
+    "node": "^6.7.0"
+  },
   "devDependencies": {},
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
