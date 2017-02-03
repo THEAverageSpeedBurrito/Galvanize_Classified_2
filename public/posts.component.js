@@ -35,7 +35,7 @@
       <hr/>
       <div ng-init="$ctrl.order = 'id'" ng-repeat="post in $ctrl.postData | filter: $ctrl.filter | orderBy: $ctrl.order">
         <p>id: {{post.id}}</p>
-        <img src={{post.item_image}}/>
+        <img src={{post.item_image}}>
         <p>{{post.title}}</p>
         <p>$ {{post.price}}</p>
         <p>Description: {{post.description}}</p>
